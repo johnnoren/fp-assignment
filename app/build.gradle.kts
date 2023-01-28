@@ -1,6 +1,6 @@
 plugins {
     id("application")
-    id("org.openjfx.javafxplugin") version "0.0.9"
+    id("org.openjfx.javafxplugin") version "0.0.13"
     id("org.beryx.jlink") version "2.12.0"
 }
 
@@ -23,7 +23,7 @@ tasks.getByName<Test>("test") {
 }
 
 javafx {
-    version = "16"
+    version = "19"
     modules = listOf("javafx.controls", "javafx.fxml")
 }
 
