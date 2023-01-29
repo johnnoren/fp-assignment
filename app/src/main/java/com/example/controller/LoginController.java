@@ -12,6 +12,9 @@ public class LoginController {
 	private Button loginButton;
 
 	@FXML
+	private Button signUpButton;
+
+	@FXML
 	private Label errorLabel;
 
 	@FXML
@@ -29,6 +32,13 @@ public class LoginController {
 				loginUser(emailField, passwordField);
 			}
 		});
+
+		signUpButton.setOnAction(event -> {
+			showCreateAccountScreen();
+		});
+	}
+
+	private void showCreateAccountScreen() {
 	}
 
 	private void loginUser(TextField emailField, PasswordField passwordField) {
