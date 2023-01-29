@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" style="-fx-background-color: #212121;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.controller.LoginController">
+   <children>
+      <AnchorPane layoutY="71.0" prefHeight="329.0" prefWidth="700.0" style="-fx-background-color: #E1E2E2;">
+         <children>
+            <TextField id="emailField" fx:id="emailField" layoutX="270.0" layoutY="106.0" promptText="Email" />
+            <PasswordField id="passwordField" fx:id="passwordField" layoutX="270.0" layoutY="152.0" promptText="Password" />
+            <Button id="loginButton" fx:id="loginButton" layoutX="270.0" layoutY="199.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Login" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="13.0" />
+               </font>
+            </Button>
+            <Label id="errorLabel" fx:id="errorLabel" alignment="CENTER" layoutY="73.0" prefHeight="17.0" prefWidth="700.0" textAlignment="CENTER" textFill="RED" />
+         </children></AnchorPane>
+      <Text fill="WHITE" layoutX="310.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Skooo" textAlignment="CENTER">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
