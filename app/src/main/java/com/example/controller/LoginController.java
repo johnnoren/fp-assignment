@@ -1,10 +1,14 @@
 package com.example.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class LoginController {
 
@@ -23,6 +27,8 @@ public class LoginController {
 	@FXML
 	private PasswordField password;
 
+	private final SceneSwitcher sceneSwitcher = new SceneSwitcher();
+
 	public void initialize() {
 		login.setOnAction(event -> {
 			if (email.getText().isEmpty() || password.getText().isEmpty()) {
@@ -34,14 +40,16 @@ public class LoginController {
 		});
 
 		signUp.setOnAction(event -> {
-			showCreateAccountScreen();
+			sceneSwitcher.switchTo(event, SceneSwitcher.SceneId.CREATE_ACCOUNT);
 		});
 	}
 
-	private void showCreateAccountScreen() {
+	private void loginUser(TextField emailField, PasswordField passwordField) {
 	}
 
-	private void loginUser(TextField emailField, PasswordField passwordField) {
+	private void changeScene(Event event, Scene scene) {
+		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
 	}
 
 }

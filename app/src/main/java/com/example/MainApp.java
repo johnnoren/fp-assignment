@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.controller.SceneSwitcher;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,14 +12,7 @@ public class MainApp extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		Parent root = FXMLLoader.load(getClass().getResource("/com/example/view/login.fxml"));
-
-		Scene scene = new Scene(root,700,400);
-		scene.getStylesheets().add(getClass().getResource("/com/example/styles.css").toExternalForm());
-
-		stage.setTitle("Skooo");
-		stage.setScene(scene);
-		stage.show();
+		new SceneSwitcher().switchTo(stage, SceneSwitcher.SceneId.LOGIN);
 	}
 
 	public static void main(String[] args) {
