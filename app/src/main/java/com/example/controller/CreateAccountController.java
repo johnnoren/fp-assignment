@@ -9,19 +9,19 @@ import javafx.scene.control.TextField;
 public class CreateAccountController {
 
 	@FXML
-	private Button createAccountButton;
+	private Button createAccount;
 
 	@FXML
-	private TextField emailField;
+	private TextField email;
 
 	@FXML
-	private Label errorLabel;
+	private Label error;
 
 	@FXML
-	private PasswordField passwordField;
+	private PasswordField password;
 	
 	public void initialize() {
-		createAccountButton.setOnAction(event -> {
+		createAccount.setOnAction(event -> {
 			createAccount();
 		});
 	}

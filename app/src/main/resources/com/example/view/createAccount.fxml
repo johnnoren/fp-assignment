@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -12,14 +13,22 @@
    <children>
       <AnchorPane layoutY="71.0" prefHeight="329.0" prefWidth="700.0" style="-fx-background-color: #E1E2E2;">
          <children>
-            <TextField id="emailField" fx:id="emailField" layoutX="270.0" layoutY="117.0" promptText="Email" />
-            <PasswordField id="passwordField" fx:id="passwordField" layoutX="270.0" layoutY="152.0" promptText="Password" />
-            <Label id="errorLabel" fx:id="errorLabel" alignment="CENTER" layoutY="73.0" prefHeight="17.0" prefWidth="700.0" textAlignment="CENTER" textFill="RED" />
-            <Button id="loginButton" fx:id="createAccountButton" layoutX="270.0" layoutY="199.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #484848;" text="Create account" textAlignment="CENTER" textFill="WHITE">
+            <TextField id="emailField" fx:id="email" layoutX="270.0" layoutY="29.0" promptText="Email" />
+            <PasswordField id="passwordField" fx:id="password" layoutX="270.0" layoutY="64.0" promptText="Password" />
+            <Label id="errorLabel" fx:id="error" alignment="CENTER" layoutY="73.0" prefHeight="17.0" prefWidth="700.0" textAlignment="CENTER" textFill="RED" />
+            <Button id="loginButton" fx:id="createAccount" layoutX="270.0" layoutY="276.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #484848;" text="Create account" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
+            <TextField id="emailField" fx:id="firstName" layoutX="270.0" layoutY="99.0" prefHeight="26.0" prefWidth="77.0" promptText="First name" />
+            <TextField id="emailField" fx:id="street" layoutX="270.0" layoutY="134.0" prefHeight="26.0" prefWidth="108.0" promptText="Street" />
+            <TextField id="emailField" fx:id="lastName" layoutX="353.0" layoutY="99.0" prefHeight="26.0" prefWidth="77.0" promptText="Last name" />
+            <TextField id="emailField" fx:id="number" layoutX="384.0" layoutY="134.0" prefHeight="26.0" prefWidth="46.0" promptText="Nr." />
+            <TextField id="emailField" fx:id="other" layoutX="270.0" layoutY="168.0" promptText="Other" />
+            <TextField id="emailField" fx:id="city" layoutX="270.0" layoutY="202.0" prefHeight="26.0" prefWidth="108.0" promptText="City" />
+            <TextField id="emailField" fx:id="postalCode" layoutX="384.0" layoutY="202.0" prefHeight="26.0" prefWidth="46.0" promptText="PC" />
+            <ChoiceBox fx:id="country" layoutX="271.0" layoutY="236.0" prefHeight="26.0" prefWidth="160.0" />
          </children></AnchorPane>
       <Text fill="WHITE" layoutX="310.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Skooo" textAlignment="CENTER">
          <font>

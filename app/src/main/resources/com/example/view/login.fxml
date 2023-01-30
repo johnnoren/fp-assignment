@@ -12,15 +12,15 @@
    <children>
       <AnchorPane layoutY="71.0" prefHeight="329.0" prefWidth="700.0" style="-fx-background-color: #E1E2E2;">
          <children>
-            <TextField id="emailField" fx:id="emailField" layoutX="270.0" layoutY="117.0" promptText="Email" />
-            <PasswordField id="passwordField" fx:id="passwordField" layoutX="270.0" layoutY="152.0" promptText="Password" />
-            <Button id="loginButton" fx:id="loginButton" layoutX="270.0" layoutY="199.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Login" textAlignment="CENTER" textFill="WHITE">
+            <TextField id="emailField" fx:id="email" layoutX="270.0" layoutY="117.0" promptText="Email" />
+            <PasswordField id="passwordField" fx:id="password" layoutX="270.0" layoutY="152.0" promptText="Password" />
+            <Button id="loginButton" fx:id="login" layoutX="270.0" layoutY="199.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #212121;" text="Login" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>
             </Button>
-            <Label id="errorLabel" fx:id="errorLabel" alignment="CENTER" layoutY="73.0" prefHeight="17.0" prefWidth="700.0" textAlignment="CENTER" textFill="RED" />
-            <Button id="loginButton" fx:id="signUpButton" layoutX="270.0" layoutY="235.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #484848;" text="Sign up" textAlignment="CENTER" textFill="WHITE">
+            <Label id="errorLabel" fx:id="error" alignment="CENTER" layoutY="73.0" prefHeight="17.0" prefWidth="700.0" textAlignment="CENTER" textFill="RED" />
+            <Button id="loginButton" fx:id="signUp" layoutX="270.0" layoutY="235.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="160.0" style="-fx-background-color: #484848;" text="Sign up" textAlignment="CENTER" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="13.0" />
                </font>

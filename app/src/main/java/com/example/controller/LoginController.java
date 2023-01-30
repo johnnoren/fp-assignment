@@ -9,31 +9,31 @@ import javafx.scene.control.TextField;
 public class LoginController {
 
 	@FXML
-	private Button loginButton;
+	private Button login;
 
 	@FXML
-	private Button signUpButton;
+	private Button signUp;
 
 	@FXML
-	private Label errorLabel;
+	private Label error;
 
 	@FXML
-	private TextField emailField;
+	private TextField email;
 
 	@FXML
-	private PasswordField passwordField;
+	private PasswordField password;
 
 	public void initialize() {
-		loginButton.setOnAction(event -> {
-			if (emailField.getText().isEmpty() || passwordField.getText().isEmpty()) {
-				errorLabel.textProperty().set("Enter email and password");
+		login.setOnAction(event -> {
+			if (email.getText().isEmpty() || password.getText().isEmpty()) {
+				error.textProperty().set("Enter email and password");
 			} else {
-				errorLabel.textProperty().set("");
-				loginUser(emailField, passwordField);
+				error.textProperty().set("");
+				loginUser(email, password);
 			}
 		});
 
-		signUpButton.setOnAction(event -> {
+		signUp.setOnAction(event -> {
 			showCreateAccountScreen();
 		});
 	}
