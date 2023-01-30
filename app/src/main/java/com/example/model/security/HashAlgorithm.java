@@ -8,12 +8,12 @@ import java.security.spec.KeySpec;
 import java.util.Base64;
 
 public class HashAlgorithm {
-	public String getHash(String stringToHash, String salt) {
+	public String getHash(String stringToHash, Salt salt) {
 		String algorithm = "PBKDF2WithHmacSHA1";
 		int derivedKeyLength = 160; // for SHA1
 		int iterations = 20000; // NIST specifies 10000
 
-		byte[] saltBytes = Base64.getDecoder().decode(salt);
+		byte[] saltBytes = Base64.getDecoder().decode(salt.value);
 		KeySpec spec = new PBEKeySpec(stringToHash.toCharArray(), saltBytes, iterations, derivedKeyLength);
 		SecretKeyFactory secretKeyFactory;
 		byte[] encodedBytes;

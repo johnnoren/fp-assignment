@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.model.service;
 
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;

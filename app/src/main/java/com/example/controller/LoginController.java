@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.model.service.SceneSwitcher;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;

@@ -1,6 +1,6 @@
 package com.example;
 
-import com.example.controller.SceneSwitcher;
+import com.example.model.service.SceneSwitcher;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

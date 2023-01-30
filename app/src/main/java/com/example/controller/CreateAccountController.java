@@ -1,14 +1,17 @@
 package com.example.controller;
 
 import com.example.model.data.CountryRepository;
+import com.example.model.data.CredentialsRepository;
 import com.example.model.data.Repository;
 import com.example.model.entity.Country;
+import com.example.model.entity.Credentials;
+import com.example.model.service.ControlValidator;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.function.Predicate;
 
 public class CreateAccountController {
 
@@ -49,8 +52,22 @@ public class CreateAccountController {
 	private TextField street;
 
 	private final Repository<Country> countryRepository = new CountryRepository();
-	
+	private final Repository<Credentials> credentialsRepository = new CredentialsRepository();
+	private ControlValidator controlValidator;
+
 	public void initialize() {
+		var mandatoryControls = new LinkedHashMap<Control, String>();
+		mandatoryControls.put(email,"Email");
+		mandatoryControls.put(password,"Password");
+		mandatoryControls.put(firstName,"First name");
+		mandatoryControls.put(lastName, "Last name");
+		mandatoryControls.put(street, "Street");
+		mandatoryControls.put(city, "City");
+		mandatoryControls.put(postalCode, "Postal code");
+		mandatoryControls.put(country, "Country");
+
+		controlValidator = new ControlValidator(mandatoryControls);
+
 		createAccount.setOnAction(event -> {
 			createAccount();
 		});
@@ -64,31 +81,25 @@ public class CreateAccountController {
 	}
 
 	private void createAccount() {
-
-		// check that all fields are filled in
-		var fieldsNotFilledList = getMandatoryFieldsNotFilled();
-		if (!fieldsNotFilledList.isEmpty()){
-			var errorMessage = "The following information must be entered: " + String.join(", ",fieldsNotFilledList);
-			error.textProperty().set(errorMessage);
+		if (controlValidator.emptyControlExist()) {
+			informUserOfRequiredFields();
 			return;
 		}
 
-		// check if there is an account with that email already
+		// Check if there is an account with that email already
+		if (credentialsRepository.find(credentials -> credentials.email().equals(email.getText())).isPresent()) {
+			error.textProperty().set("An account with that email already exists.");
+			return;
+		}
+
+		// Create the account
+		System.out.println("ran");
 
 	}
 
-	private List<String> getMandatoryFieldsNotFilled() {
-		var fieldsNotFilledList = new ArrayList<String>();
-		if (email.getText().isEmpty()) fieldsNotFilledList.add("Email");
-		if (password.getText().isEmpty()) fieldsNotFilledList.add("Password");
-		if (firstName.getText().isEmpty()) fieldsNotFilledList.add("First name");
-		if (lastName.getText().isEmpty()) fieldsNotFilledList.add("Last name");
-		if (street.getText().isEmpty()) fieldsNotFilledList.add("Street");
-		if (city.getText().isEmpty()) fieldsNotFilledList.add("City");
-		if (postalCode.getText().isEmpty()) fieldsNotFilledList.add("Postal code");
-		if (country.getValue() == null) fieldsNotFilledList.add("Country");
-		return fieldsNotFilledList;
-
+	private void informUserOfRequiredFields() {
+		var errorMessage = "The following information must be entered: " + String.join(", ", controlValidator.getNamesOfEmptyControls());
+		error.textProperty().set(errorMessage);
 	}
 
 }
