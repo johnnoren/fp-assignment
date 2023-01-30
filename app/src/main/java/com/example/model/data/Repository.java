@@ -5,7 +5,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public interface Repository<T> {
-	Optional<T> get(Predicate<T> condition);
+	Optional<T> find(Predicate<T> condition);
 	List<T> getAll();
 	void add(T t);
 	void update(T t);
