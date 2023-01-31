@@ -3,16 +3,15 @@ package com.example.controller;
 import com.example.model.command.AddCountriesToChoiceBoxCommand;
 import com.example.model.command.ValidateEmailNotTakenCommand;
 import com.example.model.command.ValidateFieldsNotEmptyCommand;
-import com.example.model.data.CountryRepository;
-import com.example.model.data.CredentialsRepository;
-import com.example.model.data.Repository;
-import com.example.model.entity.address.Country;
-import com.example.model.entity.customer.Credentials;
-import com.example.model.service.ControlValidator;
+import com.example.model.javafxextension.ChoiceBoxAdapter;
+import com.example.model.javafxextension.InputControl;
+import com.example.model.javafxextension.PasswordFieldAdapter;
+import com.example.model.javafxextension.TextFieldAdapter;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateAccountController {
 
@@ -52,22 +51,19 @@ public class CreateAccountController {
 	@FXML
 	private TextField street;
 
-	private final Repository<Country> countryRepository = new CountryRepository();
-	private final Repository<Credentials> credentialsRepository = new CredentialsRepository();
-	private ControlValidator controlValidator;
-	private final LinkedHashMap<Control,String> mandatoryControls = new LinkedHashMap<>();
+	private final List<InputControl> inputControls = new ArrayList<>();
 
 	public void initialize() {
-		mandatoryControls.put(email,"Email");
-		mandatoryControls.put(password,"Password");
-		mandatoryControls.put(firstName,"First name");
-		mandatoryControls.put(lastName, "Last name");
-		mandatoryControls.put(street, "Street");
-		mandatoryControls.put(city, "City");
-		mandatoryControls.put(postalCode, "Postal code");
-		mandatoryControls.put(country, "Country");
-
-		controlValidator = new ControlValidator(mandatoryControls);
+		inputControls.add(new TextFieldAdapter(email,"Email",true));
+		inputControls.add(new PasswordFieldAdapter(password,"Password",true));
+		inputControls.add(new TextFieldAdapter(firstName,"First name",true));
+		inputControls.add(new TextFieldAdapter(lastName,"Last name",true));
+		inputControls.add(new TextFieldAdapter(street,"Street",true));
+		inputControls.add(new TextFieldAdapter(number,"Number",false));
+		inputControls.add(new TextFieldAdapter(other,"Other",false));
+		inputControls.add(new TextFieldAdapter(city,"City",true));
+		inputControls.add(new TextFieldAdapter(postalCode,"Postal code",true));
+		inputControls.add(new ChoiceBoxAdapter(country,"Country",true));
 
 		createAccount.setOnAction(event -> {
 			createAccount();
@@ -77,7 +73,7 @@ public class CreateAccountController {
 	}
 
 	private void createAccount() {
-		var checkForEmptyFields = new ValidateFieldsNotEmptyCommand(mandatoryControls,error);
+		var checkForEmptyFields = new ValidateFieldsNotEmptyCommand(inputControls,error);
 		var checkForEmailNotTaken = new ValidateEmailNotTakenCommand(email,error);
 
 		checkForEmptyFields.andThen(checkForEmailNotTaken).execute();

@@ -1,24 +1,23 @@
 package com.example.model.command;
 
-import com.example.model.service.ControlValidator;
-import javafx.scene.control.Control;
+import com.example.model.javafxextension.InputControl;
 import javafx.scene.control.Label;
 
-import java.util.LinkedHashMap;
+import java.util.List;
 
 public class ValidateFieldsNotEmptyCommand implements Command{
 
-	private final ControlValidator validator;
+	private final List<InputControl> controls;
 	private final Label errorDisplay;
 
-	public ValidateFieldsNotEmptyCommand(LinkedHashMap<Control, String> controls, Label errorDisplay) {
-		validator = new ControlValidator(controls);
+	public ValidateFieldsNotEmptyCommand(List<InputControl> controls, Label errorDisplay) {
+		this.controls = controls;
 		this.errorDisplay = errorDisplay;
 	}
 
 	@Override
 	public Boolean task() {
-		if (validator.emptyControlExist()) {
+		if (anyControlIsEmpty()) {
 			informUserOfRequiredFields();
 			return true;
 		}
@@ -28,12 +27,25 @@ public class ValidateFieldsNotEmptyCommand implements Command{
 
 	private void informUserOfRequiredFields() {
 		var prefix = "The following information must be entered: ";
-		var requiredFields = validator.getNamesOfEmptyControls();
+		var requiredFields = getEmptyFields();
 		var delimiter = ", ";
 		var suffix = ".";
 		var fullMessage = prefix + String.join(delimiter,requiredFields) + suffix;
 
 		errorDisplay.textProperty().set(fullMessage);
+	}
+
+	private Boolean anyControlIsEmpty() {
+		return controls.stream()
+				.filter(InputControl::isMandatory)
+				.anyMatch(InputControl::isEmpty);
+	}
+
+	private List<String> getEmptyFields() {
+		return controls.stream()
+				.filter(InputControl::isMandatory)
+				.filter(InputControl::isEmpty)
+				.map(InputControl::getName).toList();
 	}
 
 }
