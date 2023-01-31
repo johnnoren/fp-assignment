@@ -1,4 +1,4 @@
-package com.example.model.entity;
+package com.example.model.entity.customer;
 
 import com.example.model.security.HashedPassword;
 import com.example.model.security.Salt;

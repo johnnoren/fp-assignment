@@ -1,6 +1,6 @@
 package com.example.model.data;
 
-import com.example.model.entity.Credentials;
+import com.example.model.entity.customer.Credentials;
 
 import java.util.List;
 import java.util.Optional;

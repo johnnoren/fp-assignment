@@ -1,15 +1,12 @@
 package com.example.controller;
 
+import com.example.model.command.ShowSceneCommand;
 import com.example.model.service.SceneSwitcher;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 public class LoginController {
 
@@ -40,17 +37,10 @@ public class LoginController {
 			}
 		});
 
-		signUp.setOnAction(event -> {
-			sceneSwitcher.switchTo(event, SceneSwitcher.SceneId.CREATE_ACCOUNT);
-		});
+		signUp.setOnAction(event -> new ShowSceneCommand(event, SceneSwitcher.SceneId.CREATE_ACCOUNT).execute());
 	}
 
 	private void loginUser(TextField emailField, PasswordField passwordField) {
-	}
-
-	private void changeScene(Event event, Scene scene) {
-		Stage stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-		stage.setScene(scene);
 	}
 
 }

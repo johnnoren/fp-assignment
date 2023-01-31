@@ -1,6 +1,6 @@
 package com.example.model.data;
 
-import com.example.model.entity.Country;
+import com.example.model.entity.address.Country;
 
 import java.util.ArrayList;
 import java.util.List;

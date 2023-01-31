@@ -1,8 +1,7 @@
 package com.example.model.data;
 
-import com.example.model.entity.Country;
-import com.example.model.entity.Credentials;
-import com.example.model.entity.Email;
+import com.example.model.entity.customer.Credentials;
+import com.example.model.entity.customer.Email;
 import com.example.model.security.HashedPassword;
 import com.example.model.security.Salt;
 

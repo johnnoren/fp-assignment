@@ -1,17 +1,18 @@
 package com.example.controller;
 
+import com.example.model.command.AddCountriesToChoiceBoxCommand;
+import com.example.model.command.ValidateEmailNotTakenCommand;
+import com.example.model.command.ValidateFieldsNotEmptyCommand;
 import com.example.model.data.CountryRepository;
 import com.example.model.data.CredentialsRepository;
 import com.example.model.data.Repository;
-import com.example.model.entity.Country;
-import com.example.model.entity.Credentials;
+import com.example.model.entity.address.Country;
+import com.example.model.entity.customer.Credentials;
 import com.example.model.service.ControlValidator;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.util.LinkedHashMap;
-import java.util.function.Predicate;
 
 public class CreateAccountController {
 
@@ -54,9 +55,9 @@ public class CreateAccountController {
 	private final Repository<Country> countryRepository = new CountryRepository();
 	private final Repository<Credentials> credentialsRepository = new CredentialsRepository();
 	private ControlValidator controlValidator;
+	private final LinkedHashMap<Control,String> mandatoryControls = new LinkedHashMap<>();
 
 	public void initialize() {
-		var mandatoryControls = new LinkedHashMap<Control, String>();
 		mandatoryControls.put(email,"Email");
 		mandatoryControls.put(password,"Password");
 		mandatoryControls.put(firstName,"First name");
@@ -72,34 +73,19 @@ public class CreateAccountController {
 			createAccount();
 		});
 
-		addCountriesToChoicebox();
-	}
-
-	private void addCountriesToChoicebox() {
-		var countryNameArray = countryRepository.getAll().stream().map(country -> country.name()).toArray(String[]::new);
-		country.setItems(FXCollections.observableArrayList(countryNameArray));
+		new AddCountriesToChoiceBoxCommand(country).execute();
 	}
 
 	private void createAccount() {
-		if (controlValidator.emptyControlExist()) {
-			informUserOfRequiredFields();
-			return;
-		}
+		var checkForEmptyFields = new ValidateFieldsNotEmptyCommand(mandatoryControls,error);
+		var checkForEmailNotTaken = new ValidateEmailNotTakenCommand(email,error);
 
-		// Check if there is an account with that email already
-		if (credentialsRepository.find(credentials -> credentials.email().equals(email.getText())).isPresent()) {
-			error.textProperty().set("An account with that email already exists.");
-			return;
-		}
+		checkForEmptyFields.andThen(checkForEmailNotTaken).execute();
 
 		// Create the account
 		System.out.println("ran");
 
 	}
 
-	private void informUserOfRequiredFields() {
-		var errorMessage = "The following information must be entered: " + String.join(", ", controlValidator.getNamesOfEmptyControls());
-		error.textProperty().set(errorMessage);
-	}
 
 }
