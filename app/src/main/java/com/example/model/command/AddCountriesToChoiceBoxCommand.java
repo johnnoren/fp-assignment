@@ -1,7 +1,7 @@
 package com.example.model.command;
 
-import com.example.model.data.CountryRepository;
-import com.example.model.entity.address.Country;
+import com.example.model.data.repository.CountryRepository;
+import com.example.model.entity.Country;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 

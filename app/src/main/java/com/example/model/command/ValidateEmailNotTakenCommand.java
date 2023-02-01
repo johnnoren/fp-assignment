@@ -1,7 +1,7 @@
 package com.example.model.command;
 
-import com.example.model.data.CredentialsRepository;
-import com.example.model.entity.customer.Email;
+import com.example.model.data.repository.CredentialsRepository;
+import com.example.model.property.Email;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
