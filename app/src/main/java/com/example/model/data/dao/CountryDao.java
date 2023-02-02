@@ -1,43 +1,35 @@
 package com.example.model.data.dao;
 
-import com.example.model.data.dao.DatabaseConnector;
-import com.example.model.data.daoOLD.Dao;
-import com.example.model.data.dto.CountryDTO;
-import com.example.model.data.dto.Dto;
-import com.example.model.entity.Country;
-import com.example.model.entity.Id;
-import com.example.model.property.CountryName;
+import com.example.model.data.dto.CountryDto;
+import com.example.model.entity.*;
+import com.example.model.property.*;
 
-import java.sql.Statement;
+import java.sql.CallableStatement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CountryDao implements Dao<Country> {
+public class CountryDao implements Dao<Country, CountryDto> {
 
 	private final DatabaseConnector databaseConnector = new DatabaseConnector();
 
 	@Override
-	public void create(Dto<Country> countryDto) {
-		return databaseConnector.execute((connection) -> {
-			var statement = connection.prepareStatement(SqlQueries.CREATE_COUNTRY.query);
-			statement.setString(1, (CountryDTO) countryDto.name);
-			statement.executeUpdate();
+	public void create(CountryDto countryDto) {
+		databaseConnector.execute((connection) -> {
+			CallableStatement statement = connection.prepareCall(SqlQueries.CREATE_COUNTRY.query);;
+			countryDtoToStatement.map(countryDto, statement);
+			statement.execute();
+			return null;
 		});
 	}
 
 	@Override
 	public Optional<Country> read(Integer id) {
-		return databaseConnector.execute((connection) -> {
+		return databaseConnector.execute(connection -> {
 			var statement = connection.prepareStatement(SqlQueries.READ_ONE_COUNTRY.query);
 			statement.setInt(1,id);
 			var resultSet = statement.executeQuery();
-			if (resultSet.next()) {
-				return Optional.of(new Country(new Id(resultSet.getInt("Id")), new CountryName(resultSet.getString(
-						"Name"))));
-			} else {
-				return Optional.empty();
-			}
+			return resultSet.next() ? Optional.of(resultsetToCountry.map(resultSet)) : Optional.empty();
 		});
 	}
 
@@ -47,10 +39,7 @@ public class CountryDao implements Dao<Country> {
 			var statement = connection.createStatement();
 			var resultSet = statement.executeQuery(SqlQueries.READ_ALL_COUNTRIES.query);
 			var resultList = new ArrayList<Country>();
-			while (resultSet.next()) {
-				resultList.add(new Country(new Id(resultSet.getInt("Id")), new CountryName(resultSet.getString("Name")))
-				);
-			}
+			while (resultSet.next()) resultList.add(resultsetToCountry.map(resultSet));
 			return resultList;
 		});
 	}
@@ -59,8 +48,7 @@ public class CountryDao implements Dao<Country> {
 	public void update(Country country) {
 		databaseConnector.execute((connection) -> {
 			var statement = connection.prepareStatement(SqlQueries.UPDATE_COUNTRY.query);
-			statement.setString(1,country.name().value());
-			statement.setInt(2,country.id().value());
+			countryToUpdateStatement.map(country, statement);
 			statement.executeQuery();
 			return null;
 		});
@@ -77,4 +65,16 @@ public class CountryDao implements Dao<Country> {
 
 	}
 
+	DtoToStatementMapper<CountryDto> countryDtoToStatement = (countryDto, statement) -> {
+		statement.setString(1, countryDto.name());
+	};
+
+	EntityToStatementMapper<Country> countryToUpdateStatement = (country, statement) -> {
+		statement.setString(1,country.name().value());
+		statement.setInt(2,country.id().value());
+	};
+
+	ResultsetToEntityMapper<Country> resultsetToCountry = (resultSet -> new Country(
+			new Id(resultSet.getInt(1)),
+			new CountryName(resultSet.getString(2))));
 }

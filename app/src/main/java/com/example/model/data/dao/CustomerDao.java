@@ -1,8 +1,6 @@
 package com.example.model.data.dao;
 
-import com.example.model.data.daoOLD.Dao;
 import com.example.model.data.dto.CustomerDto;
-import com.example.model.data.dto.Dto;
 import com.example.model.entity.*;
 import com.example.model.property.*;
 import com.example.model.property.Number;
@@ -14,15 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class CustomerDao implements Dao<Customer> {
+public class CustomerDao implements Dao<Customer, CustomerDto> {
 
 	private final DatabaseConnector databaseConnector = new DatabaseConnector();
 
 	@Override
-	public void create(Dto<Customer> customerDto) {
+	public void create(CustomerDto customerDto) {
 		databaseConnector.execute(connection -> {
 			CallableStatement statement = connection.prepareCall(SqlQueries.CREATE_CUSTOMER.query);
-			customerDtoToStatement.map((CustomerDto) customerDto,statement);
+			customerDtoToStatement.map(customerDto,statement);
 			statement.execute();
 			return null;
 		});

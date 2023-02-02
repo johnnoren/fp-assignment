@@ -1,7 +1,7 @@
 package com.example.model.data.repository;
 
 import com.example.model.data.daoOLD.CustomerDao;
-import com.example.model.data.daoOLD.Dao;
+import com.example.model.data.dao.Dao;
 import com.example.model.entity.Customer;
 
 import java.util.List;

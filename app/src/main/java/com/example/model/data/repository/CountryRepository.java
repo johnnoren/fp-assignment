@@ -1,7 +1,7 @@
 package com.example.model.data.repository;
 
 import com.example.model.data.dao.CountryDao;
-import com.example.model.data.daoOLD.Dao;
+import com.example.model.data.dao.Dao;
 import com.example.model.entity.Country;
 
 import java.util.List;
