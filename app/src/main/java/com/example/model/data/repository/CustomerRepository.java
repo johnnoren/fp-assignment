@@ -1,6 +1,7 @@
 package com.example.model.data.repository;
 
-import com.example.model.data.dao.CustomerDao;
+import com.example.model.data.daoOLD.CustomerDao;
+import com.example.model.data.daoOLD.Dao;
 import com.example.model.entity.Customer;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.function.Predicate;
 
 public class CustomerRepository implements Repository<Customer> {
 
-	private final CustomerDao dao = new CustomerDao();
+	private final Dao<Customer> customerDao = new CustomerDao();
 
 	@Override
 	public Optional<Customer> find(Predicate<Customer> condition) {

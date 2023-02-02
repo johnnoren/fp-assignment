@@ -1,7 +1,7 @@
 package com.example.model.data.repository;
 
-import com.example.model.data.dao.CredentialsDao;
-import com.example.model.data.dao.Dao;
+import com.example.model.data.daoOLD.CredentialsDao;
+import com.example.model.data.daoOLD.Dao;
 import com.example.model.entity.Credentials;
 
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.function.Predicate;
 
 public class CredentialsRepository implements Repository<Credentials>{
 
-	private final Dao<Credentials> dao = new CredentialsDao();
+	private final Dao<Credentials> credentialsDao = new CredentialsDao();
 
 	@Override
 	public Optional<Credentials> find(Predicate<Credentials> condition) {
-		return dao.readAll().stream().filter(condition).findFirst();
+		return credentialsDao.readAll().stream().filter(condition).findFirst();
 	}
 
 	@Override

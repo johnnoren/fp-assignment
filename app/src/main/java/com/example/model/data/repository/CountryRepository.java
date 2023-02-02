@@ -1,7 +1,7 @@
 package com.example.model.data.repository;
 
-import com.example.model.data.dao.CountryDao;
-import com.example.model.data.dao.Dao;
+import com.example.model.data.daoOLD.CountryDao;
+import com.example.model.data.daoOLD.Dao;
 import com.example.model.entity.Country;
 
 import java.util.List;
@@ -10,11 +10,11 @@ import java.util.function.Predicate;
 
 public class CountryRepository implements Repository<Country>{
 
-	private final Dao<Country> dao = new CountryDao();
+	private final Dao<Country> countryDao = new CountryDao();
 
 	@Override
 	public Optional<Country> find(Predicate<Country> condition) {
-		return dao.readAll().stream().filter(condition).findFirst();
+		return countryDao.readAll().stream().filter(condition).findFirst();
 	}
 
 	@Override
