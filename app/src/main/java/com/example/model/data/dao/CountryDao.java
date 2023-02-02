@@ -1,6 +1,9 @@
-package com.example.model.data.daoOLD;
+package com.example.model.data.dao;
 
 import com.example.model.data.dao.DatabaseConnector;
+import com.example.model.data.daoOLD.Dao;
+import com.example.model.data.dto.CountryDTO;
+import com.example.model.data.dto.Dto;
 import com.example.model.entity.Country;
 import com.example.model.entity.Id;
 import com.example.model.property.CountryName;
@@ -15,22 +18,18 @@ public class CountryDao implements Dao<Country> {
 	private final DatabaseConnector databaseConnector = new DatabaseConnector();
 
 	@Override
-	public Integer create(Country country) {
+	public void create(Dto<Country> countryDto) {
 		return databaseConnector.execute((connection) -> {
-			var sqlQuery = "insert into Country (Id, Name) values (?, ?)";
-			var statement = connection.prepareStatement(sqlQuery, Statement.RETURN_GENERATED_KEYS);
-			statement.setInt(1,country.id().value());
-			statement.setString(2,country.name().value());
+			var statement = connection.prepareStatement(SqlQueries.CREATE_COUNTRY.query);
+			statement.setString(1, (CountryDTO) countryDto.name);
 			statement.executeUpdate();
-			return statement.getGeneratedKeys().getInt(1);
 		});
 	}
 
 	@Override
 	public Optional<Country> read(Integer id) {
 		return databaseConnector.execute((connection) -> {
-			var sqlQuery = "select Id, Name from Country where Id = ?";
-			var statement = connection.prepareStatement(sqlQuery);
+			var statement = connection.prepareStatement(SqlQueries.READ_ONE_COUNTRY.query);
 			statement.setInt(1,id);
 			var resultSet = statement.executeQuery();
 			if (resultSet.next()) {
@@ -46,8 +45,7 @@ public class CountryDao implements Dao<Country> {
 	public List<Country> readAll() {
 		return databaseConnector.execute((connection) -> {
 			var statement = connection.createStatement();
-			var sqlQuery = "select Id, Name from Country";
-			var resultSet = statement.executeQuery(sqlQuery);
+			var resultSet = statement.executeQuery(SqlQueries.READ_ALL_COUNTRIES.query);
 			var resultList = new ArrayList<Country>();
 			while (resultSet.next()) {
 				resultList.add(new Country(new Id(resultSet.getInt("Id")), new CountryName(resultSet.getString("Name")))
@@ -60,8 +58,7 @@ public class CountryDao implements Dao<Country> {
 	@Override
 	public void update(Country country) {
 		databaseConnector.execute((connection) -> {
-			var sqlQuery = "update Country set Name = ? where Id = ?";
-			var statement = connection.prepareStatement(sqlQuery);
+			var statement = connection.prepareStatement(SqlQueries.UPDATE_COUNTRY.query);
 			statement.setString(1,country.name().value());
 			statement.setInt(2,country.id().value());
 			statement.executeQuery();
@@ -72,8 +69,7 @@ public class CountryDao implements Dao<Country> {
 	@Override
 	public void delete(Country country) {
 		databaseConnector.execute((connection) -> {
-			var sqlQuery = "delete from Country where Id = ?";
-			var statement = connection.prepareStatement(sqlQuery);
+			var statement = connection.prepareStatement(SqlQueries.DELETE_COUNTRY.query);
 			statement.setInt(1,country.id().value());
 			statement.executeQuery();
 			return null;

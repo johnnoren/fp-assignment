@@ -10,14 +10,13 @@ import com.example.model.security.HashedPassword;
 import com.example.model.security.Salt;
 
 import java.sql.CallableStatement;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class CustomerDao implements Dao<Customer> {
 
-	private DatabaseConnector databaseConnector = new DatabaseConnector();
+	private final DatabaseConnector databaseConnector = new DatabaseConnector();
 
 	@Override
 	public void create(Dto<Customer> customerDto) {
@@ -35,7 +34,6 @@ public class CustomerDao implements Dao<Customer> {
 			var statement = connection.prepareStatement(SqlQueries.READ_ONE_CUSTOMER.query);
 			statement.setInt(1,id);
 			var resultSet = statement.executeQuery();
-
 			return resultSet.next() ? Optional.of(resultsetToCustomer.map(resultSet)) : Optional.empty();
 		});
 	}
@@ -46,21 +44,25 @@ public class CustomerDao implements Dao<Customer> {
 			var statement = connection.prepareStatement(SqlQueries.READ_ALL_CUSTOMERS.query);
 			var resultSet = statement.executeQuery();
 			var resultList = new ArrayList<Customer>();
-			while (resultSet.next()) {
-				resultList.add(resultsetToCustomer.map(resultSet));
-			}
+			while (resultSet.next()) resultList.add(resultsetToCustomer.map(resultSet));
 			return resultList;
 		});
 	}
 
 	@Override
 	public void update(Customer customer) {
-
+		databaseConnector.execute(connection -> {
+			var statement = connection.prepareStatement(SqlQueries.UPDATE_CUSTOMER.query);
+			customerToUpdateStatement.map(customer, statement);
+			statement.executeUpdate();
+			return null;
+		});
 	}
 
 	@Override
 	public void delete(Customer customer) {
-
+		// TODO
+		throw new RuntimeException("Not implemented");
 	}
 
 	DtoToStatementMapper<CustomerDto> customerDtoToStatement = (customerDto, statement) -> {
@@ -78,20 +80,18 @@ public class CustomerDao implements Dao<Customer> {
 	};
 
 	EntityToStatementMapper<Customer> customerToUpdateStatement = (customer, statement) -> {
-		statement.setInt(1,customer.id().value());
-		statement.setString(2,customer.firstName().value());
-		statement.setString(3, customer.lastName().value());
-		statement.setInt(4, customer.credentials().id().value());
-		statement.setString(5, customer.credentials().email().value());
-		statement.setString(6, customer.credentials().salt().value);
-		statement.setString(7, customer.credentials().hashedPassword().value);
-		statement.setInt(8, customer.address().id().value());
-		statement.setString(9, customer.address().street().value());
-		statement.setString(10, customer.address().number().value());
-		statement.setString(11, customer.address().other().value());
-		statement.setString(12, customer.address().postalCode().value());
-		statement.setString(13, customer.address().city().value());
-		statement.setInt(14, customer.address().country().id().value());
+		statement.setString(1,customer.firstName().value());
+		statement.setString(2, customer.lastName().value());
+		statement.setString(3, customer.credentials().email().value());
+		statement.setString(4, customer.credentials().salt().value);
+		statement.setString(5, customer.credentials().hashedPassword().value);
+		statement.setString(6, customer.address().street().value());
+		statement.setString(7, customer.address().number().value());
+		statement.setString(8, customer.address().other().value());
+		statement.setString(9, customer.address().postalCode().value());
+		statement.setString(10, customer.address().city().value());
+		statement.setInt(11, customer.address().country().id().value());
+		statement.setInt(12,customer.id().value());
 	};
 
 	ResultsetToEntityMapper<Customer> resultsetToCustomer = (resultSet -> new Customer(
