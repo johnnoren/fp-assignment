@@ -22,7 +22,7 @@ class DatabaseConnector {
 		}
 	}
 
-	protected  <T> T execute(DatabaseInteractor<T> function) {
+	protected <T> T execute(DatabaseInteractor<T> function) {
 		try (Connection connection = DriverManager.getConnection(p.getProperty("connectionString"),
 				p.getProperty("name"),
 				p.getProperty("password"))

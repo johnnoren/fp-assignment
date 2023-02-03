@@ -1,16 +1,17 @@
 package com.example.model.data.repository;
 
-import com.example.model.data.daoOLD.CustomerDao;
+import com.example.model.data.dao.CustomerDao;
 import com.example.model.data.dao.Dao;
+import com.example.model.data.dto.CustomerDto;
 import com.example.model.entity.Customer;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class CustomerRepository implements Repository<Customer> {
+public class CustomerRepository implements Repository<Customer, CustomerDto> {
 
-	private final Dao<Customer> customerDao = new CustomerDao();
+	private final Dao<Customer, CustomerDto> customerDao = new CustomerDao();
 
 	@Override
 	public Optional<Customer> find(Predicate<Customer> condition) {
@@ -25,7 +26,7 @@ public class CustomerRepository implements Repository<Customer> {
 	}
 
 	@Override
-	public void add(Customer customer) {
+	public void add(CustomerDto customerDto) {
 		// TODO
 		throw new RuntimeException("Not implemented");
 	}

@@ -5,6 +5,11 @@ import com.example.model.property.StockLevel;
 
 import java.util.UUID;
 
-public record Shoe(Id id, UUID sku, Price price, StockLevel stockLevel, ShoeSize size, Style style) {
+public record Shoe(Id id, UUID sku, Price price, StockLevel stockLevel, ShoeSize size, Style style) implements Identifiable {
+
+	@Override
+	public Id getId() {
+		return id;
+	}
 
 }

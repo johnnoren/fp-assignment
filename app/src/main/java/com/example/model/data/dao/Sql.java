@@ -1,6 +1,6 @@
 package com.example.model.data.dao;
 
-public enum SqlQueries {
+public enum Sql {
 	CREATE_CUSTOMER("""
 			call Add_Customer(?,?,?,?,?,?,?,?,?,?,?);
 			"""),
@@ -50,8 +50,16 @@ public enum SqlQueries {
 			where Customer.Id = ?;
 			"""),
 
+	DELETE_CUSTOMER("""
+			delete Customer, Credentials, Address from Customer
+			    inner join Credentials on Customer.CredentialsId = Credentials.Id
+			    inner join Address on Customer.AddressId = Address.Id
+			where
+			    Customer.id = ?;
+			"""),
+
 	CREATE_COUNTRY("""
-			insert into Country (Id, Name) values (?, ?);
+			insert into Country (Name) values (?);
 			"""),
 
 	READ_ONE_COUNTRY("""
@@ -68,15 +76,35 @@ public enum SqlQueries {
 
 	DELETE_COUNTRY("""
 			delete from Country where Id = ?
+			"""),
+
+	CREATE_CREDENTIALS("""
+			insert into Credentials (Email, PasswordSalt, PasswordHash) values (?, ?, ?);
+			"""),
+
+	READ_ONE_CREDENTIALS("""
+			select Id, Email, PasswordSalt, PasswordHash from Credentials where Id = ?
+			"""),
+
+	READ_ALL_CREDENTIALS("""
+			select Id, Email, PasswordSalt, PasswordHash from Credentials
+			"""),
+
+	UPDATE_CREDENTIALS("""
+			update Credentials set
+				Email = ?,
+				PasswordSalt = ?,
+				PasswordHash = ?
+			where Id = ?
+			"""),
+
+	DELETE_CREDENTIALS("""
+			delete from Credentials where Id = ?
 			""");
-
-
-
-
 
 	public final String query;
 
-	SqlQueries(String query) {
+	Sql(String query) {
 		this.query = query;
 	}
 }

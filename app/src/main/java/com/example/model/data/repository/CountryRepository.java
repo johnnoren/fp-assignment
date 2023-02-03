@@ -2,15 +2,16 @@ package com.example.model.data.repository;
 
 import com.example.model.data.dao.CountryDao;
 import com.example.model.data.dao.Dao;
+import com.example.model.data.dto.CountryDto;
 import com.example.model.entity.Country;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class CountryRepository implements Repository<Country>{
+public class CountryRepository implements Repository<Country, CountryDto>{
 
-	private final Dao<Country> countryDao = new CountryDao();
+	private final Dao<Country, CountryDto> countryDao = new CountryDao();
 
 	@Override
 	public Optional<Country> find(Predicate<Country> condition) {
@@ -19,11 +20,11 @@ public class CountryRepository implements Repository<Country>{
 
 	@Override
 	public List<Country> getAll() {
-		return dao.readAll();
+		return countryDao.readAll();
 	}
 
 	@Override
-	public void add(Country country) {
+	public void add(CountryDto countryDto) {
 		// TODO
 		throw new RuntimeException("Not implemented");
 	}

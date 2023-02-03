@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import static com.example.model.service.SceneSwitcher.*;
+
 public class LoginController {
 
 	@FXML
@@ -37,7 +39,7 @@ public class LoginController {
 			}
 		});
 
-		signUp.setOnAction(event -> new ShowSceneCommand(event, SceneSwitcher.SceneId.CREATE_ACCOUNT).execute());
+		signUp.setOnAction(event -> new ShowSceneCommand(event, SceneId.CREATE_ACCOUNT).execute());
 	}
 
 	private void loginUser(TextField emailField, PasswordField passwordField) {

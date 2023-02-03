@@ -16,7 +16,8 @@ public class AddCountriesToChoiceBoxCommand implements Command {
 
 	@Override
 	public Boolean task() {
-		var countryNameArray = countryRepository.getAll().stream().map(Country::name).toArray(String[]::new);
+		var countryNameArray =
+				countryRepository.getAll().stream().map(country -> country.name().value()).toArray(String[]::new);
 		choiceBox.setItems(FXCollections.observableArrayList(countryNameArray));
 		return false;
 	}

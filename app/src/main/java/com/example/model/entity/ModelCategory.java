@@ -1,5 +1,10 @@
 package com.example.model.entity;
 
-public record ModelCategory(Id id, Model model, Category category) {
+public record ModelCategory(Id id, Model model, Category category) implements Identifiable {
+
+	@Override
+	public Id getId() {
+		return id;
+	}
 
 }

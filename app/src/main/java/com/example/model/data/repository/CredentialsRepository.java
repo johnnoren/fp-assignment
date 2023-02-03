@@ -1,16 +1,17 @@
 package com.example.model.data.repository;
 
-import com.example.model.data.daoOLD.CredentialsDao;
+import com.example.model.data.dao.CredentialsDao;
 import com.example.model.data.dao.Dao;
+import com.example.model.data.dto.CredentialsDto;
 import com.example.model.entity.Credentials;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class CredentialsRepository implements Repository<Credentials>{
+public class CredentialsRepository implements Repository<Credentials, CredentialsDto>{
 
-	private final Dao<Credentials> credentialsDao = new CredentialsDao();
+	private final Dao<Credentials, CredentialsDto> credentialsDao = new CredentialsDao();
 
 	@Override
 	public Optional<Credentials> find(Predicate<Credentials> condition) {
@@ -24,7 +25,7 @@ public class CredentialsRepository implements Repository<Credentials>{
 	}
 
 	@Override
-	public void add(Credentials credentials) {
+	public void add(CredentialsDto credentialsDto) {
 		// TODO
 		throw new RuntimeException("Not implemented");
 	}
