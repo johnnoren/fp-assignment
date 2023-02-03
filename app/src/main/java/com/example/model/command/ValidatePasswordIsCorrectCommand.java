@@ -6,13 +6,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class ValidatePasswordIsCorrect implements Command {
+public class ValidatePasswordIsCorrectCommand implements Command {
 	private final CredentialsRepository repo = new CredentialsRepository();
 	private final Email email;
 	private final String rawPassword;
 	private final Label errorDisplay;
 
-	public ValidatePasswordIsCorrect(TextField emailField, PasswordField passwordField, Label errorDisplay) {
+	public ValidatePasswordIsCorrectCommand(TextField emailField, PasswordField passwordField, Label errorDisplay) {
 		this.email = new Email(emailField.getText());
 		this.rawPassword = passwordField.getText();
 		this.errorDisplay = errorDisplay;

@@ -1,11 +1,10 @@
 package com.example.controller;
 
 import com.example.model.command.*;
-import com.example.model.javafxextension.ChoiceBoxAdapter;
 import com.example.model.javafxextension.InputControl;
 import com.example.model.javafxextension.PasswordFieldAdapter;
 import com.example.model.javafxextension.TextFieldAdapter;
-import com.example.model.service.SceneSwitcher;
+import com.example.model.property.Email;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,20 +40,22 @@ public class LoginController {
 		inputControls.add(new TextFieldAdapter(email,"Email",true));
 		inputControls.add(new PasswordFieldAdapter(password,"Password",true));
 
-		login.setOnAction(event -> loginUser(event));
+		login.setOnAction(this::validateAndLogin);
 
 		signUp.setOnAction(event -> new ShowSceneCommand(event, SceneId.CREATE_ACCOUNT).execute());
 	}
 
-	private void loginUser(Event event) {
+	private void validateAndLogin(Event event) {
 		var checkForEmptyFields = new ValidateFieldsNotEmptyCommand(inputControls,error);
 		var checkThatAccountExists = new ValidateEmailExistsCommand(email,error);
-		var checkThatPasswordIsCorrect = new ValidatePasswordIsCorrect(email,password,error);
+		var checkThatPasswordIsCorrect = new ValidatePasswordIsCorrectCommand(email,password,error);
+		var loginUser = new LoginUserCommand(new Email(email.getText()));
 		var showOrderingScreen = new ShowSceneCommand(event,SceneId.PRODUCTS);
 
 		checkForEmptyFields
 				.andThen(checkThatAccountExists)
 				.andThen(checkThatPasswordIsCorrect)
+				.andThen(loginUser)
 				.andThen(showOrderingScreen).execute();
 
 	}
