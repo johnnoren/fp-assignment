@@ -13,7 +13,8 @@ public class SceneSwitcher {
 
 	public enum SceneId {
 		LOGIN("/com/example/view/login.fxml", "Skoo - login", 700, 400),
-		CREATE_ACCOUNT("/com/example/view/createAccount.fxml", "Skoo - sign up", 700, 400);
+		CREATE_ACCOUNT("/com/example/view/createAccount.fxml", "Skoo - sign up", 700, 400),
+		PRODUCTS("/com/example/view/products.fxml", "Skoo - sign up", 700, 400);
 
 		public final String resourceName;
 		public final String title;
