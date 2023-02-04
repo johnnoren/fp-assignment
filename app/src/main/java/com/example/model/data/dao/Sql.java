@@ -190,6 +190,46 @@ public enum Sql {
 
 	DELETE_STYLECOLOURS("""
 			delete from StyleColours where Id = ?
+			"""),
+
+	CREATE_MODELCATEGORY("""
+			insert into ModelCategory (ModelId, CategoryId) values (?, ?);
+			"""),
+
+	READ_ONE_MODELCATEGORY("""
+			select Id, ModelId, CategoryId from ModelCategory where Id = ?
+			"""),
+
+	READ_ALL_MODELCATEGORY("""
+			select Id, ModelId, CategoryId from ModelCategory
+			"""),
+
+	UPDATE_MODELCATEGORY("""
+			update ModelCategory set ModelId = ?, CategoryId = ? where Id = ?
+			"""),
+
+	DELETE_MODELCATEGORY("""
+			delete from ModelCategory where Id = ?
+			"""),
+
+	CREATE_CATEGORY("""
+			insert into Category (Id, Name) values (?, ?);
+			"""),
+
+	READ_ONE_CATEGORY("""
+			select Id, Name from Category where Id = ?
+			"""),
+
+	READ_ALL_CATEGORY("""
+			select Id, Name from Category
+			"""),
+
+	UPDATE_CATEGORY("""
+			update Category set Name = ? where Id = ?
+			"""),
+
+	DELETE_CATEGORY("""
+			delete from Category where Id = ?
 			""");
 
 	public final String query;

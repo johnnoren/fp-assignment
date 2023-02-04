@@ -1,14 +1,8 @@
 package com.example.model.data.repository;
 
 import com.example.model.data.dao.*;
-import com.example.model.data.dto.ColourDto;
-import com.example.model.data.dto.CustomerDto;
-import com.example.model.data.dto.ShoeDto;
-import com.example.model.data.dto.StyleColourDto;
-import com.example.model.entity.Colour;
-import com.example.model.entity.Customer;
-import com.example.model.entity.Shoe;
-import com.example.model.entity.StyleColour;
+import com.example.model.data.dto.*;
+import com.example.model.entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +14,8 @@ public class ShoeRepository implements Repository<Shoe, ShoeDto> {
 	private final Dao<Shoe, ShoeDto> shoeDao = new ShoeDao();
 	private final Dao<Colour, ColourDto> colourDao = new ColourDao();
 	private final Dao<StyleColour, StyleColourDto> styleColourDao = new StyleColourDao();
+	private final Dao<ModelCategory, ModelCategoryDto> modelCategoryDao = new ModelCategoryDao();
+	private final Dao<Category, CategoryDto> categoryDao = new CategoryDao();
 
 	@Override
 	public Optional<Shoe> find(Predicate<Shoe> condition) {
@@ -29,14 +25,9 @@ public class ShoeRepository implements Repository<Shoe, ShoeDto> {
 
 	@Override
 	public List<Shoe> getAll() {
-		// TODO
+		var shoeList = shoeDao.readAll();
 
-		// Get the incomplete shoe objects.
-		var incompleShoes = shoeDao.readAll();
-
-		// Get colours for the style and add them to the style list
-		var moreCompleteShoes = new ArrayList<>(incompleShoes);
-		incompleShoes.forEach(shoe -> {
+		shoeList.forEach(shoe -> {
 			var styleId = shoe.style().id().value();
 			var styleColourList =
 					styleColourDao.readAll().stream().filter(styleColour -> styleColour.styleId().value().equals(styleId)).toList();
@@ -47,9 +38,18 @@ public class ShoeRepository implements Repository<Shoe, ShoeDto> {
 				}
 		);
 
-		// Get the categories for the model
+		shoeList.forEach(shoe -> {
+			var modelId = shoe.style().model().id().value();
+			var modelCategoryList =
+					modelCategoryDao.readAll().stream().filter(modelCategory -> modelCategory.modelId().value().equals(modelId)).toList();
+			var categoryList =
+					modelCategoryList.stream().map(modelCategory -> categoryDao.read(modelCategory.categoryId().value()).get()).toList();
 
-		// Add the categories to the model
+			shoe.style().model().categoryList().addAll(categoryList);
+				}
+		);
+
+		return shoeList;
 
 	}
 
