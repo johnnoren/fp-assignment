@@ -17,7 +17,7 @@ public class ColourDao extends Dao<Colour, ColourDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<Colour> getMapperForRead() {
+	protected ResultSetToEntityMapper<Colour> getMapperForRead() {
 		return (resultSet -> new Colour(
 				new Id(resultSet.getInt(1)),
 				new ColourName(resultSet.getString(2))));

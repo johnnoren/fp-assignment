@@ -16,7 +16,7 @@ public class CountryDao extends Dao<Country, CountryDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<Country> getMapperForRead() {
+	protected ResultSetToEntityMapper<Country> getMapperForRead() {
 		return (resultSet -> new Country(
 				new Id(resultSet.getInt(1)),
 				new CountryName(resultSet.getString(2))));

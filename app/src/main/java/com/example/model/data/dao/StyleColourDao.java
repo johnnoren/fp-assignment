@@ -18,7 +18,7 @@ public class StyleColourDao extends Dao<StyleColour, StyleColourDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<StyleColour> getMapperForRead() {
+	protected ResultSetToEntityMapper<StyleColour> getMapperForRead() {
 		return (resultSet -> new StyleColour(
 				new Id(resultSet.getInt(1)),
 				new Id(resultSet.getInt(2)),

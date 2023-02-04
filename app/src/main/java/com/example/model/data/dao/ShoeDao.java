@@ -3,11 +3,7 @@ package com.example.model.data.dao;
 import com.example.model.data.dto.ShoeDto;
 import com.example.model.entity.*;
 import com.example.model.property.*;
-import com.example.model.property.Number;
-import com.example.model.security.HashedPassword;
-import com.example.model.security.Salt;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -24,7 +20,7 @@ public class ShoeDao extends Dao<Shoe, ShoeDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<Shoe> getMapperForRead() {
+	protected ResultSetToEntityMapper<Shoe> getMapperForRead() {
 		return (resultSet -> new Shoe(
 				new Id(resultSet.getInt(1)),
 				UUID.fromString(resultSet.getString(2)),

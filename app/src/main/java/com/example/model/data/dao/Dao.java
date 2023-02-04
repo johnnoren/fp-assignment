@@ -37,12 +37,12 @@ public abstract class Dao<T extends Identifiable, R extends Dto<T>> {
 	}
 
 	@FunctionalInterface
-	interface ResultsetToEntityMapper<T> {
+	interface ResultSetToEntityMapper<T> {
 		T map(ResultSet resultSet) throws Exception;
 	}
 
 	protected abstract DtoToStatementMapper<R> getMapperForCreate();
-	protected abstract ResultsetToEntityMapper<T> getMapperForRead();
+	protected abstract ResultSetToEntityMapper<T> getMapperForRead();
 	protected abstract EntityToStatementMapper<T> getMapperForUpdate();
 
 	public void create(R r) {

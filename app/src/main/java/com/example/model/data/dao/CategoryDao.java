@@ -18,7 +18,7 @@ public class CategoryDao extends Dao<Category, CategoryDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<Category> getMapperForRead() {
+	protected ResultSetToEntityMapper<Category> getMapperForRead() {
 		return (resultSet -> new Category(
 				new Id(resultSet.getInt(1)),
 				new CategoryName(resultSet.getString(2))));

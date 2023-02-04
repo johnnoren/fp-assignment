@@ -31,7 +31,9 @@ public class ProductsController {
 
 		productSelection.setCellFactory(param -> new ShoeListCell());
 
-		productSelection.getTargetItems().addListener((ListChangeListener<Shoe>) change -> new AddToCartCommand().execute());
+		productSelection.getTargetItems().addListener((ListChangeListener<Shoe>) change -> {
+
+		});
 
 	}
 

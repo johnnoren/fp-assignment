@@ -34,7 +34,7 @@ public class CustomerDao extends Dao<Customer, CustomerDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<Customer> getMapperForRead() {
+	protected ResultSetToEntityMapper<Customer> getMapperForRead() {
 		return (resultSet -> new Customer(
 				new Id(resultSet.getInt(1)),
 				new Name(resultSet.getString(2)),

@@ -2,9 +2,7 @@ package com.example.model.data.dao;
 
 import com.example.model.data.dto.ModelCategoryDto;
 import com.example.model.entity.Id;
-import com.example.model.entity.Model;
 import com.example.model.entity.ModelCategory;
-import com.example.model.entity.StyleColour;
 
 public class ModelCategoryDao extends Dao<ModelCategory, ModelCategoryDto> {
 
@@ -20,7 +18,7 @@ public class ModelCategoryDao extends Dao<ModelCategory, ModelCategoryDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<ModelCategory> getMapperForRead() {
+	protected ResultSetToEntityMapper<ModelCategory> getMapperForRead() {
 		return (resultSet -> new ModelCategory(
 				new Id(resultSet.getInt(1)),
 				new Id(resultSet.getInt(2)),

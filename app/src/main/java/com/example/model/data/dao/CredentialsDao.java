@@ -24,7 +24,7 @@ public class CredentialsDao extends Dao<Credentials, CredentialsDto>{
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<Credentials> getMapperForRead() {
+	protected ResultSetToEntityMapper<Credentials> getMapperForRead() {
 		return (resultSet -> new Credentials(
 				new Id(resultSet.getInt(1)),
 				new Email(resultSet.getString(2)),

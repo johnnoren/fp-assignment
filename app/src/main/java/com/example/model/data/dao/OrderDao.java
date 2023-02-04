@@ -18,7 +18,7 @@ public class OrderDao extends Dao<Order, OrderDto> {
 	}
 
 	@Override
-	protected ResultsetToEntityMapper<Order> getMapperForRead() {
+	protected ResultSetToEntityMapper<Order> getMapperForRead() {
 		// TODO
 		throw new UnsupportedOperationException("Not implemented");
 	}
