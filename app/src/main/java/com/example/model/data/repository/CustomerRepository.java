@@ -16,31 +16,31 @@ public class CustomerRepository implements Repository<Customer, CustomerDto> {
 	@Override
 	public Optional<Customer> find(Predicate<Customer> condition) {
 		// TODO
-		throw new RuntimeException("Not implemented");
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	public List<Customer> getAll() {
 		// TODO
-		throw new RuntimeException("Not implemented");
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	public void add(CustomerDto customerDto) {
 		// TODO
-		throw new RuntimeException("Not implemented");
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	public void update(Customer customer) {
 		// TODO
-		throw new RuntimeException("Not implemented");
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 	@Override
 	public void remove(Customer customer) {
 		// TODO
-		throw new RuntimeException("Not implemented");
+		throw new UnsupportedOperationException("Not implemented");
 	}
 
 }

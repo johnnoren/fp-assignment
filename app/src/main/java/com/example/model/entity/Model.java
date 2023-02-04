@@ -3,7 +3,9 @@ package com.example.model.entity;
 import com.example.model.property.ModelDescription;
 import com.example.model.property.ModelName;
 
-public record Model(Id id, ModelName name, ModelDescription description, Brand brand) implements Identifiable {
+import java.util.List;
+
+public record Model(Id id, ModelName name, ModelDescription description, Brand brand, List<Category> categoryList) implements Identifiable {
 
 	@Override
 	public Id getId() {

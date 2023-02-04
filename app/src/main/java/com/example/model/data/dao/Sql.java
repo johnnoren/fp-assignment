@@ -1,5 +1,8 @@
 package com.example.model.data.dao;
 
+import com.example.model.property.Price;
+import com.example.model.property.StockLevel;
+
 public enum Sql {
 	CREATE_CUSTOMER("""
 			call Add_Customer(?,?,?,?,?,?,?,?,?,?,?);
@@ -100,6 +103,93 @@ public enum Sql {
 
 	DELETE_CREDENTIALS("""
 			delete from Credentials where Id = ?
+			"""),
+
+	CREATE_SHOE("""
+			call Add_Shoe(?,?,?,?,?);
+			"""),
+
+	READ_ONE_SHOE("""
+			select
+			    Shoe.Id, Shoe.SKU, Shoe.Price, Shoe.StockLevel,
+			    ShoeSize.Id, ShoeSize.European,
+			    Style.Id, Style.Name, Style.Image,
+			    Model.Id, Model.Name, Model.Description,
+			    Brand.Id, Brand.Name
+			from Shoe
+			    inner join ShoeSize on Shoe.ShoeSizeId = ShoeSize.Id
+			    inner join Style on Shoe.StyleId = Style.Id
+			    inner join Model on Style.ModelId = Model.Id
+			    inner join Brand on Model.BrandId = Brand.Id
+			where Shoe.Id = ?
+			"""),
+
+	READ_ALL_SHOES("""
+			select
+			    Shoe.Id, Shoe.SKU, Shoe.Price, Shoe.StockLevel,
+			    ShoeSize.Id, ShoeSize.European,
+			    Style.Id, Style.Name, Style.Image,
+			    Model.Id, Model.Name, Model.Description,
+			    Brand.Id, Brand.Name
+			from Shoe
+			    inner join ShoeSize on Shoe.ShoeSizeId = ShoeSize.Id
+			    inner join Style on Shoe.StyleId = Style.Id
+			    inner join Model on Style.ModelId = Model.Id
+			    inner join Brand on Model.BrandId = Brand.Id
+			"""),
+
+	UPDATE_SHOE("""
+			update Shoe set
+				SKU = ?,
+				Price = ?,
+				StockLevel = ?,
+				ShoeSizeId = ?,
+				StyleId = ?
+			where Id = ?
+			"""),
+
+	DELETE_SHOE("""
+			delete from Colour where Id = ?
+			"""),
+
+	CREATE_COLOUR("""
+			insert into Colour (Name) values (?);
+			"""),
+
+	READ_ONE_COLOUR("""
+			select Id, Name from Colour where Id = ?
+			"""),
+
+	READ_ALL_COLOURS("""
+			select Id, Name from Colour
+			"""),
+
+	UPDATE_COLOUR("""
+			update Colour set Name = ? where Id = ?
+			"""),
+
+	DELETE_COLOUR("""
+			delete from Colour where Id = ?
+			"""),
+
+	CREATE_STYLECOLOURS("""
+			insert into StyleColours (StyleId, ColourId) values (?, ?);
+			"""),
+
+	READ_ONE_STYLECOLOURS("""
+			select Id, StyleId, ColourId from StyleColours where Id = ?
+			"""),
+
+	READ_ALL_STYLECOLOURS("""
+			select Id, StyleId, ColourId from StyleColours
+			"""),
+
+	UPDATE_STYLECOLOURS("""
+			update StyleColours set StyleId = ?, ColourId = ? where Id = ?
+			"""),
+
+	DELETE_STYLECOLOURS("""
+			delete from StyleColours where Id = ?
 			""");
 
 	public final String query;

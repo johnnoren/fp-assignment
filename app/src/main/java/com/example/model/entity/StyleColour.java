@@ -1,6 +1,6 @@
 package com.example.model.entity;
 
-public record StyleColour(Id id, Style style, Colour colour) implements Identifiable {
+public record StyleColour(Id id, Id styleId, Id colourId) implements Identifiable {
 
 	@Override
 	public Id getId() {
