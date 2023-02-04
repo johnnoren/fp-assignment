@@ -15,8 +15,7 @@ public class CustomerRepository implements Repository<Customer, CustomerDto> {
 
 	@Override
 	public Optional<Customer> find(Predicate<Customer> condition) {
-		// TODO
-		throw new UnsupportedOperationException("Not implemented");
+		return customerDao.readAll().stream().filter(condition).findFirst();
 	}
 
 	@Override

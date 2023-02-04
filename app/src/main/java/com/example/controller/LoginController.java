@@ -51,12 +51,14 @@ public class LoginController {
 		var checkThatPasswordIsCorrect = new ValidatePasswordIsCorrectCommand(email,password,error);
 		var loginUser = new LoginUserCommand(new Email(email.getText()));
 		var showOrderingScreen = new ShowSceneCommand(event,SceneId.PRODUCTS);
+		var createNewOrder = new CreateNewOrderCommand();
 
 		checkForEmptyFields
 				.andThen(checkThatAccountExists)
 				.andThen(checkThatPasswordIsCorrect)
 				.andThen(loginUser)
-				.andThen(showOrderingScreen).execute();
+				.andThen(showOrderingScreen)
+				.andThen(createNewOrder).execute();
 
 	}
 

@@ -230,6 +230,26 @@ public enum Sql {
 
 	DELETE_CATEGORY("""
 			delete from Category where Id = ?
+			"""),
+
+	CREATE_ORDER("""
+			insert into Order (OrderNumber, CustomerId) values (?, ?);
+			"""),
+
+	READ_ONE_ORDER("""
+			select Id, OrderDate, OrderNumber, CustomerId from Order where Id = ?;
+			"""),
+
+	READ_ALL_ORDERS("""
+			select Id, OrderDate, OrderNumber, CustomerId from Order
+			"""),
+
+	UPDATE_ORDER("""
+			update Order set Id = ?, OrderDate = ?, OrderNumber = ?, CustomerIdName = ? where Id = ?
+			"""),
+
+	DELETE_ORDER("""
+			delete from Order where Id = ?
 			""");
 
 	public final String query;

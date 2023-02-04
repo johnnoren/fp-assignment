@@ -31,7 +31,7 @@ public class ShoeListCell extends ListCell<Shoe> {
 				content.setSpacing(10);
 				var imageUrl =
 						getClass().getResource("/com/example/images/" + shoe.style().productImage().fileName()).toExternalForm();
-				imageView.setImage(new Image(imageUrl,50,50,true,false));
+				imageView.setImage(new Image(imageUrl,150,150,true,true));
 				brand.setText(shoe.style().model().brand().name().value());
 				model.setText(shoe.style().model().modelName().value());
 				style.setText(shoe.style().styleName().value());

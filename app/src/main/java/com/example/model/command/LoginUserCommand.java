@@ -17,7 +17,7 @@ public class LoginUserCommand implements Command {
 	public Boolean task() {
 		var credentialsId =
 				credentialsRepository.find(credentials -> credentials.email().value().equals(userEmail.value())).get().id();
-		Session.setCurrentUser(credentialsId);
+		Session.getSession().setCurrentUserId(credentialsId);
 		return false;
 	}
 
