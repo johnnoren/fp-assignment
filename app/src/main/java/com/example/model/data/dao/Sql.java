@@ -233,7 +233,7 @@ public enum Sql {
 			"""),
 
 	CREATE_ORDER("""
-			insert into Order (OrderNumber, CustomerId) values (?, ?);
+			insert into `Order` (OrderNumber, CustomerId) values (?, ?);
 			"""),
 
 	READ_ONE_ORDER("""
@@ -245,11 +245,11 @@ public enum Sql {
 			"""),
 
 	UPDATE_ORDER("""
-			update Order set Id = ?, OrderDate = ?, OrderNumber = ?, CustomerIdName = ? where Id = ?
+			update `Order` set Id = ?, OrderDate = ?, OrderNumber = ?, CustomerIdName = ? where Id = ?
 			"""),
 
 	DELETE_ORDER("""
-			delete from Order where Id = ?
+			delete from `Order` where Id = ?
 			""");
 
 	public final String query;
