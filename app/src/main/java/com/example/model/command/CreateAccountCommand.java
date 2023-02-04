@@ -34,8 +34,8 @@ public class CreateAccountCommand implements Command {
 		var salt = new Salt();
 		var hashedPassword = new HashedPassword(map.get("Password"), salt);
 		return new CustomerDto(
-				map.get("First name"),
-				map.get("Last name"),
+				map.get("First modelName"),
+				map.get("Last modelName"),
 				map.get("Email"),
 				salt.value,
 				hashedPassword.value,

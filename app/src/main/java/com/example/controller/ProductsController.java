@@ -1,16 +1,19 @@
 package com.example.controller;
 
 import com.example.model.command.ShowSceneCommand;
+import com.example.model.data.repository.ShoeRepository;
+import com.example.model.entity.Shoe;
+import com.example.model.javafxextension.ShoeListCell;
 import com.example.model.service.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.util.Callback;
+import org.controlsfx.control.ListSelectionView;
 
 public class ProductsController {
-
-	@FXML
-	private ListView<?> cart;
 
 	@FXML
 	private Label error;
@@ -19,10 +22,16 @@ public class ProductsController {
 	private Button logout;
 
 	@FXML
-	private ListView<?> products;
+	private ListSelectionView<Shoe> productSelection;
+
 
 	public void initialize() {
 		logout.setOnAction(event -> new ShowSceneCommand(event, SceneSwitcher.SceneId.LOGIN).execute());
+
+		productSelection.getSourceItems().addAll(new ShoeRepository().getAll());
+
+		productSelection.setCellFactory(param -> new ShoeListCell());
+
 	}
 
 }

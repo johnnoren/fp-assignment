@@ -1,6 +1,7 @@
 package com.example;
 
 import com.example.model.command.ShowSceneCommand;
+import com.example.model.data.repository.ShoeRepository;
 import com.example.model.service.SceneSwitcher.SceneId;
 import javafx.application.Application;
 import javafx.stage.Stage;

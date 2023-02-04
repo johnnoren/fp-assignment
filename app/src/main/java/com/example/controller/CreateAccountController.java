@@ -56,8 +56,8 @@ public class CreateAccountController {
 	public void initialize() {
 		inputControls.add(new TextFieldAdapter(email,"Email",true));
 		inputControls.add(new PasswordFieldAdapter(password,"Password",true));
-		inputControls.add(new TextFieldAdapter(firstName,"First name",true));
-		inputControls.add(new TextFieldAdapter(lastName,"Last name",true));
+		inputControls.add(new TextFieldAdapter(firstName,"First modelName",true));
+		inputControls.add(new TextFieldAdapter(lastName,"Last modelName",true));
 		inputControls.add(new TextFieldAdapter(street,"Street",true));
 		inputControls.add(new TextFieldAdapter(number,"Number",false));
 		inputControls.add(new TextFieldAdapter(other,"Other",false));

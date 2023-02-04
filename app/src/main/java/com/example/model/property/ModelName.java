@@ -1,5 +1,5 @@
 package com.example.model.property;
 
-public record ModelName(String name) {
+public record ModelName(String value) {
 
 }
