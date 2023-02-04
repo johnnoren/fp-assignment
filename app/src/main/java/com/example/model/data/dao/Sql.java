@@ -250,6 +250,14 @@ public enum Sql {
 
 	DELETE_ORDER("""
 			delete from `Order` where Id = ?
+			"""),
+
+	ADD_TO_CART("""
+			call AddToCart(?,?);
+			"""),
+
+	REMOVE_FROM_CART("""
+			call RemoveFromCart(?,?);
 			""");
 
 	public final String query;
