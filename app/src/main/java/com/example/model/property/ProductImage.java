@@ -2,6 +2,6 @@ package com.example.model.property;
 
 import java.io.File;
 
-public record ProductImage(File file) {
+public record ProductImage(String fileName) {
 
 }

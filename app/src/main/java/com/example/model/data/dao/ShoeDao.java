@@ -36,7 +36,7 @@ public class ShoeDao extends Dao<Shoe, ShoeDto> {
 				new Style(
 						new Id(resultSet.getInt(7)),
 						new StyleName(resultSet.getString(8)),
-						new ProductImage(new File(resultSet.getString(9))),
+						new ProductImage(resultSet.getString(9)),
 						new Model(
 								new Id(resultSet.getInt(10)),
 								new ModelName(resultSet.getString(11)),
