@@ -49,7 +49,7 @@ public class LoginController {
 		var checkForEmptyFields = new ValidateFieldsNotEmptyCommand(inputControls,error);
 		var checkThatAccountExists = new ValidateEmailExistsCommand(email,error);
 		var checkThatPasswordIsCorrect = new ValidatePasswordIsCorrectCommand(email,password,error);
-		var loginUser = new LoginUserCommand(new Email(email.getText()));
+		var loginUser = new LoginUserCommand(new Email(email.getText()), event);
 		var showOrderingScreen = new ShowSceneCommand(event,SceneId.PRODUCTS);
 		var createNewOrder = new CreateNewOrderCommand();
 

@@ -15,7 +15,10 @@ public class SceneSwitcher {
 		LOGIN("/com/example/view/login.fxml", "Skoo - login", 700, 400),
 		CREATE_ACCOUNT("/com/example/view/createAccount.fxml", "Skoo - sign up", 700, 400),
 		PRODUCTS("/com/example/view/products.fxml", "Skoo - products", 700, 400),
-		REPORTS("/com/example/view/reports.fxml", "Skoo - reports", 700, 400);
+		REPORTS("/com/example/view/reports.fxml", "Skoo - reports", 700, 400),
+		REPORT_CLV("/com/example/view/clv.fxml", "Skoo - Customer lifetime value", 700, 400),
+		REPORT_CPX("/com/example/view/cpx.fxml", "Skoo - Customers who purchased x", 700, 400),
+		REPORT_OPC("/com/example/view/opc.fxml", "Skoo - Number of orders per customer", 700, 400);
 
 		public final String resourceName;
 		public final String title;

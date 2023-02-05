@@ -23,7 +23,7 @@ public class OrderItemDao {
 	public List<OrderItemDto> readAll() {
 		return new DatabaseConnector().execute((connection) -> {
 			var statement = connection.createStatement();
-			var resultSet = statement.executeQuery(Sql.READ_ALL_ORDERS.query);
+			var resultSet = statement.executeQuery(Sql.READ_ALL_ORDERITEMS.query);
 			var resultList = new ArrayList<OrderItemDto>();
 			while (resultSet.next()) resultList.add(getMapperForRead().map(resultSet));
 			return resultList;

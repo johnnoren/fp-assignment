@@ -29,7 +29,9 @@ public class CredentialsDao extends Dao<Credentials, CredentialsDto>{
 				new Id(resultSet.getInt(1)),
 				new Email(resultSet.getString(2)),
 				new Salt(resultSet.getString(3)),
-				new HashedPassword(resultSet.getString(4))));
+				new HashedPassword(resultSet.getString(4)),
+				resultSet.getBoolean(5)
+		));
 	}
 
 	@Override
@@ -39,6 +41,7 @@ public class CredentialsDao extends Dao<Credentials, CredentialsDto>{
 			statement.setString(2, credentials.salt().value);
 			statement.setString(3, credentials.hashedPassword().value);
 			statement.setInt(3, credentials.id().value());
+			statement.setBoolean(5, credentials.admin());
 		};
 	}
 

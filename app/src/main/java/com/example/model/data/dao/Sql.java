@@ -86,18 +86,19 @@ public enum Sql {
 			"""),
 
 	READ_ONE_CREDENTIALS("""
-			select Id, Email, PasswordSalt, PasswordHash from Credentials where Id = ?
+			select Id, Email, PasswordSalt, PasswordHash, Admin from Credentials where Id = ?
 			"""),
 
 	READ_ALL_CREDENTIALS("""
-			select Id, Email, PasswordSalt, PasswordHash from Credentials
+			select Id, Email, PasswordSalt, PasswordHash, Admin from Credentials
 			"""),
 
 	UPDATE_CREDENTIALS("""
 			update Credentials set
 				Email = ?,
 				PasswordSalt = ?,
-				PasswordHash = ?
+				PasswordHash = ?,
+				Admin = ?
 			where Id = ?
 			"""),
 
@@ -258,6 +259,10 @@ public enum Sql {
 
 	REMOVE_FROM_CART("""
 			call RemoveFromCart(?,?);
+			"""),
+
+	READ_ALL_ORDERITEMS("""
+			select Id, Quantity, ShoeId, OrderId from OrderItem
 			""");
 
 	public final String query;
