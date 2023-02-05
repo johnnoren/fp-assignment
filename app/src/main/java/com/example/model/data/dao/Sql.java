@@ -263,6 +263,26 @@ public enum Sql {
 
 	READ_ALL_ORDERITEMS("""
 			select Id, Quantity, ShoeId, OrderId from OrderItem
+			"""),
+
+	CREATE_SHOESIZE("""
+			insert into ShoeSize (European) values (?);
+			"""),
+
+	READ_ONE_SHOESIZE("""
+			select Id, European from ShoeSize where Id = ?
+			"""),
+
+	READ_ALL_SHOESIZES("""
+			select Id, European from ShoeSize
+			"""),
+
+	UPDATE_SHOESIZE("""
+			update ShoeSize set European = ? where Id = ?
+			"""),
+
+	DELETE_SHOESIZE("""
+			delete from ShoeSize where Id = ?
 			""");
 
 	public final String query;
