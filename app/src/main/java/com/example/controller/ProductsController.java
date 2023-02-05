@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.model.command.AdjustOrderCommand;
 import com.example.model.command.ShowSceneCommand;
 import com.example.model.data.repository.ShoeRepository;
 import com.example.model.entity.Shoe;
@@ -31,7 +32,7 @@ public class ProductsController {
 		productSelection.setCellFactory(param -> new ShoeListCell());
 
 		productSelection.getTargetItems().addListener((ListChangeListener<Shoe>) change -> {
-
+			new AdjustOrderCommand(change).execute();
 		});
 
 	}

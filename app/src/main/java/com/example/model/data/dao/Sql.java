@@ -237,11 +237,11 @@ public enum Sql {
 			"""),
 
 	READ_ONE_ORDER("""
-			select Id, OrderDate, OrderNumber, CustomerId from Order where OrderNumber = ?;
+			select Id, OrderDate, OrderNumber, CustomerId from `Order` where OrderNumber = ?;
 			"""),
 
 	READ_ALL_ORDERS("""
-			select Id, OrderDate, OrderNumber, CustomerId from Order
+			select Id, OrderDate, OrderNumber, CustomerId from `Order`
 			"""),
 
 	UPDATE_ORDER("""
