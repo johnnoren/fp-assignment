@@ -4,6 +4,6 @@ import com.example.model.entity.Id;
 import com.example.model.entity.OrderItem;
 import com.example.model.property.Quantity;
 
-public record OrderItemDto(Quantity quantity, Id shoeId, Id orderId) implements Dto<OrderItem> {
+public record OrderItemDto(Id id, Quantity quantity, Id shoeId, Id orderId) implements Dto<OrderItem> {
 
 }
