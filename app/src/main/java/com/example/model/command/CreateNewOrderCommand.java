@@ -5,6 +5,8 @@ import com.example.model.data.repository.CustomerRepository;
 import com.example.model.data.repository.OrderRepository;
 import com.example.model.service.Session;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class CreateNewOrderCommand implements Command {
@@ -20,7 +22,7 @@ public class CreateNewOrderCommand implements Command {
 		var customerId = customerOptional.get().id();
 		var orderNumber = UUID.randomUUID();
 
-		orderRepository.add(new OrderDto(orderNumber, customerId));
+		orderRepository.add(new OrderDto(Timestamp.valueOf(LocalDateTime.now()),orderNumber, customerId));
 
 		Session.getSession().setCurrentCustomerId(customerId);
 		Session.getSession().setCurrentOrderNumber(orderNumber);

@@ -233,11 +233,11 @@ public enum Sql {
 			"""),
 
 	CREATE_ORDER("""
-			insert into `Order` (OrderNumber, CustomerId) values (?, ?);
+			insert into `Order` (OrderDate, OrderNumber, CustomerId) values (?, ?, ?);
 			"""),
 
 	READ_ONE_ORDER("""
-			select Id, OrderDate, OrderNumber, CustomerId from Order where Id = ?;
+			select Id, OrderDate, OrderNumber, CustomerId from Order where OrderNumber = ?;
 			"""),
 
 	READ_ALL_ORDERS("""
@@ -245,11 +245,11 @@ public enum Sql {
 			"""),
 
 	UPDATE_ORDER("""
-			update `Order` set Id = ?, OrderDate = ?, OrderNumber = ?, CustomerIdName = ? where Id = ?
+			update `Order` set Id = ?, OrderDate = ?, OrderNumber = ?, CustomerIdName = ? where OrderNumber = ?
 			"""),
 
 	DELETE_ORDER("""
-			delete from `Order` where Id = ?
+			delete from `Order` where OrderNumber = ?
 			"""),
 
 	ADD_TO_CART("""

@@ -8,37 +8,40 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public class OrderRepository implements Repository<Order, OrderDto> {
+public class OrderRepository {
 
 	private final OrderDao orderDao = new OrderDao();
+	private final CustomerRepository customerRepository = new CustomerRepository();
 
-	@Override
 	public Optional<Order> find(Predicate<Order> condition) {
-		// TODO
-		throw new UnsupportedOperationException("Not implemented");
+		return orderDao.readAll().stream()
+				.map(this::createOrder)
+				.filter(condition)
+				.findFirst();
 	}
 
-	@Override
 	public List<Order> getAll() {
-		// TODO
-		throw new UnsupportedOperationException("Not implemented");
+		return orderDao.readAll().stream()
+				.map(this::createOrder)
+				.toList();
 	}
 
-	@Override
 	public void add(OrderDto orderDto) {
 		orderDao.create(orderDto);
 	}
 
-	@Override
 	public void update(Order order) {
-		// TODO
-		throw new UnsupportedOperationException("Not implemented");
+		orderDao.update(order);
 	}
 
-	@Override
 	public void remove(Order order) {
-		// TODO
-		throw new UnsupportedOperationException("Not implemented");
+		orderDao.delete(order);
+	}
+
+	private Order createOrder(OrderDto orderDto) {
+		var customer =
+				customerRepository.find(customer1 -> customer1.id().value().equals(orderDto.customerId().value())).get();
+		return new Order(orderDto.id(),orderDto.date(),orderDto.orderNumber(), customer);
 	}
 
 }
