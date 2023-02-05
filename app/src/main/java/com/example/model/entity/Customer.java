@@ -12,4 +12,22 @@ public record Customer(Id id, Name firstName, Name lastName, Credentials credent
 		return id;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		}
+		if (!(o instanceof Customer c)) {
+			return false;
+		}
+		return c.getId().value().equals(this.getId().value());
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = 17;
+		hash = 31 * hash + this.id.value();
+		return hash;
+	}
+
 }

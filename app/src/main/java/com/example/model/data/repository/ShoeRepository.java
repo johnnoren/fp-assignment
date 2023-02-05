@@ -19,8 +19,7 @@ public class ShoeRepository implements Repository<Shoe, ShoeDto> {
 
 	@Override
 	public Optional<Shoe> find(Predicate<Shoe> condition) {
-		// TODO
-		throw new UnsupportedOperationException("Not implemented");
+		return shoeDao.readAll().stream().filter(condition).findFirst();
 	}
 
 	@Override
