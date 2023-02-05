@@ -7,15 +7,18 @@ import com.example.model.entity.Shoe;
 import com.example.model.property.Quantity;
 import com.example.model.service.Session;
 import javafx.collections.ListChangeListener;
+import javafx.scene.control.Label;
 
 public class AdjustOrderCommand implements Command {
 
 	private final ListChangeListener.Change<? extends Shoe> orderChange;
 	private final AdjustOrderContentsDao dao = new AdjustOrderContentsDao();
 	private final OrderRepository orderRepository = new OrderRepository();
+	private final Label errorDisplay;
 
-	public AdjustOrderCommand(ListChangeListener.Change<? extends Shoe> orderChange) {
+	public AdjustOrderCommand(ListChangeListener.Change<? extends Shoe> orderChange, Label errorDisplay) {
 		this.orderChange = orderChange;
+		this.errorDisplay = errorDisplay;
 	}
 
 	@Override
@@ -24,10 +27,12 @@ public class AdjustOrderCommand implements Command {
 		var orderId = orderRepository.find(order -> order.orderNumber().equals(orderNumber)).get().id();
 		while (orderChange.next()) {
 			for (Shoe removedShoe : orderChange.getRemoved()) {
-				dao.RemoveFromOrder(new OrderItemDto(new Quantity(1),removedShoe.id(),orderId));
+				boolean removeWasSuccessful = dao.RemoveFromOrder(new OrderItemDto(new Quantity(1),removedShoe.id(),orderId));
+				if (!removeWasSuccessful) errorDisplay.textProperty().set("Product could not be removed.");
 			}
 			for (Shoe addedShoe : orderChange.getAddedSubList()) {
-				dao.AddToOrder(new OrderItemDto(new Quantity(1),addedShoe.id(),orderId));
+				boolean addWasSuccessful = dao.AddToOrder(new OrderItemDto(new Quantity(1),addedShoe.id(),orderId));
+				if (!addWasSuccessful) errorDisplay.textProperty().set("Product could not be added.");
 			}
 		}
 		return false;

@@ -3,21 +3,13 @@ package com.example.controller;
 import com.example.model.command.AddSizesToChoiceBoxCommand;
 import com.example.model.command.ShowSceneCommand;
 import com.example.model.data.repository.OrderItemRepository;
-import com.example.model.entity.Customer;
-import com.example.model.reports.ClvRow;
 import com.example.model.reports.CpxRow;
 import com.example.model.service.SceneSwitcher;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.util.Map;
-import java.util.stream.Collectors;
-
 public class CpxController {
-
-	// 1. En rapport som listar alla kunder, med namn och adress, som har handlat varor i en viss storlek,
-	// av en viss färg eller av ett visst märke.
 
 	@FXML
 	private Button back;
@@ -69,7 +61,8 @@ public class CpxController {
 		var rowData = new OrderItemRepository().getAll().stream()
 				.filter(orderItem -> orderItem.shoe().size().europeanSize().value().equals(size))
 				.map(orderItem -> orderItem.order().customer())
-				.map(customer -> new CpxRow(customer.firstName().value(), customer.lastName().value(),
+				.map(customer -> new CpxRow(
+						customer.firstName().value(), customer.lastName().value(),
 						customer.address().street().value(),customer.address().number().value(),
 						customer.address().other().value(),customer.address().postalCode().value(),
 						customer.address().city().value(),customer.address().country().name().value()))
@@ -77,7 +70,5 @@ public class CpxController {
 
 		table.getItems().addAll(rowData);
 	}
-
-
 
 }

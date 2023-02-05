@@ -32,7 +32,7 @@ public class ProductsController {
 		productSelection.setCellFactory(param -> new ShoeListCell());
 
 		productSelection.getTargetItems().addListener((ListChangeListener<Shoe>) change -> {
-			new AdjustOrderCommand(change).execute();
+			new AdjustOrderCommand(change, error).execute();
 		});
 
 	}

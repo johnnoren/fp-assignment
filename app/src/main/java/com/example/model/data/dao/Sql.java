@@ -254,11 +254,11 @@ public enum Sql {
 			"""),
 
 	ADD_TO_CART("""
-			call AddToCart(?,?);
+			call AddToCart(?,?,?);
 			"""),
 
 	REMOVE_FROM_CART("""
-			call RemoveFromCart(?,?);
+			call RemoveFromCart(?,?,?);
 			"""),
 
 	READ_ALL_ORDERITEMS("""
