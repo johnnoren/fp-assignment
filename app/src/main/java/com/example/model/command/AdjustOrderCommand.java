@@ -25,6 +25,7 @@ public class AdjustOrderCommand implements Command {
 	public Boolean task() {
 		var orderNumber = Session.getSession().getCurrentOrderNumber();
 		var orderId = orderRepository.find(order -> order.orderNumber().equals(orderNumber)).get().id();
+
 		while (orderChange.next()) {
 			for (Shoe removedShoe : orderChange.getRemoved()) {
 				boolean removeWasSuccessful = dao.RemoveFromOrder(new OrderItemDto(new Quantity(1),removedShoe.id(),orderId));
